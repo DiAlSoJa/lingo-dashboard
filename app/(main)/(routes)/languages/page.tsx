@@ -1,3 +1,4 @@
+
 import HeaderPage from '@/components/HeaderPage'
 import LanguageTable from '@/components/languages/LanguageTable'
 import React from 'react'

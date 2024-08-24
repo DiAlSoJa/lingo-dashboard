@@ -14,7 +14,9 @@ const Sidebar = () => {
     { href: "/word_type", label: "Word Types", icon: <LucideWholeWord className="mr-2 h-4 w-4" /> },
     { href: "/lists", label: "List", icon: <LucideWholeWord className="mr-2 h-4 w-4" /> },
     { href: "/users", label: "Users", icon: <User2Icon className="mr-2 h-4 w-4" /> },
-    {href:"/plants", label: "Plants", icon: <User2Icon className="mr-2 h-4 w-4" />}
+    {href:"/plants", label: "Plants", icon: <User2Icon className="mr-2 h-4 w-4" />},
+    {href:"/courses", label: "Courses", icon: <User2Icon className="mr-2 h-4 w-4" />},
+
   ];
 
   return (
