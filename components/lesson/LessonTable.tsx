@@ -4,9 +4,7 @@ import TableActions from './TableActions';
 import mongoose from 'mongoose';
 import { Language } from '@/types/languages';
 import { WordType } from '@/types/word-type';
-import Plant from '@/models/plant';
-import Image from 'next/image';
-import Course from '@/models/course';
+import Lesson from '@/models/lesson';
 
 interface IPlant {
   _id: mongoose.Types.ObjectId;
@@ -15,29 +13,30 @@ interface IPlant {
   language: Language;
 }
 
-interface CourseTableProps {
+interface LessonTableProps {
   limit?: number;
   title?: string;
 }
 
-const CourseTable = async ({ limit, title }: CourseTableProps) => {
-  const courses: any[] = await Course.find().populate("languageId")
+const LessonTable = async ({ limit, title }: LessonTableProps) => {
+  const lessons: any[] = await Lesson.find().populate("chapterId")
 
   return (
     <div className="mt-10 shadow-md rounded-md dark:border dark:border-slate-700">
-      <h3 className="text-2xl mb-4 font-semibold p-5">{title ? title : 'courses'}</h3>
+      <h3 className="text-2xl mb-4 font-semibold p-5">{title ? title : 'lessons'}</h3>
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Title</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>Language</TableHead>
+            <TableHead>description</TableHead>
+            <TableHead>chapter</TableHead>
+
 
             
           </TableRow>
         </TableHeader>
         <TableBody>
-          {courses.map(course => (
+          {lessons.map(course => (
             <TableRow
               key={course._id.toString()}
             >
@@ -45,7 +44,8 @@ const CourseTable = async ({ limit, title }: CourseTableProps) => {
 
               <TableCell>{course.title}</TableCell>
               <TableCell>{course.description}</TableCell>
-              <TableCell>{course.languageId?.locale}</TableCell>
+              <TableCell>{course.chapterId.title}</TableCell>
+
               <TableCell>
                 <TableActions id={course._id.toString()} />
               </TableCell>
@@ -57,4 +57,4 @@ const CourseTable = async ({ limit, title }: CourseTableProps) => {
   );
 }
 
-export default CourseTable;
+export default LessonTable;

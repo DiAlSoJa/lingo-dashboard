@@ -4,9 +4,8 @@ import TableActions from './TableActions';
 import mongoose from 'mongoose';
 import { Language } from '@/types/languages';
 import { WordType } from '@/types/word-type';
-import Plant from '@/models/plant';
-import Image from 'next/image';
-import Course from '@/models/course';
+import LessonQuiz from '@/models/lesson-quiz';
+
 
 interface IPlant {
   _id: mongoose.Types.ObjectId;
@@ -15,39 +14,39 @@ interface IPlant {
   language: Language;
 }
 
-interface CourseTableProps {
+interface LessonTableProps {
   limit?: number;
   title?: string;
 }
 
-const CourseTable = async ({ limit, title }: CourseTableProps) => {
-  const courses: any[] = await Course.find().populate("languageId")
+const LessonTable = async ({ limit, title }: LessonTableProps) => {
+  const lessonQuizes: any[] = await LessonQuiz.find().populate("lessonId")
 
   return (
     <div className="mt-10 shadow-md rounded-md dark:border dark:border-slate-700">
-      <h3 className="text-2xl mb-4 font-semibold p-5">{title ? title : 'courses'}</h3>
+      <h3 className="text-2xl mb-4 font-semibold p-5">{title ? title : 'lesson Quizes'}</h3>
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Title</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>Language</TableHead>
+            <TableHead>Lesson</TableHead>
+
 
             
           </TableRow>
         </TableHeader>
         <TableBody>
-          {courses.map(course => (
+          {lessonQuizes.map(lessonQuiz => (
             <TableRow
-              key={course._id.toString()}
+              key={lessonQuiz._id.toString()}
             >
     
 
-              <TableCell>{course.title}</TableCell>
-              <TableCell>{course.description}</TableCell>
-              <TableCell>{course.languageId?.locale}</TableCell>
+              <TableCell>{lessonQuiz.title}</TableCell>
+              <TableCell>{lessonQuiz.lessonId.title}</TableCell>
+
               <TableCell>
-                <TableActions id={course._id.toString()} />
+                <TableActions id={lessonQuiz._id.toString()} />
               </TableCell>
             </TableRow>
           ))} 
@@ -57,4 +56,4 @@ const CourseTable = async ({ limit, title }: CourseTableProps) => {
   );
 }
 
-export default CourseTable;
+export default LessonTable;

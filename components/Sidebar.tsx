@@ -16,6 +16,10 @@ const Sidebar = () => {
     { href: "/users", label: "Users", icon: <User2Icon className="mr-2 h-4 w-4" /> },
     {href:"/plants", label: "Plants", icon: <User2Icon className="mr-2 h-4 w-4" />},
     {href:"/courses", label: "Courses", icon: <User2Icon className="mr-2 h-4 w-4" />},
+    {href:"/chapter", label: "Chapters", icon: <User2Icon className="mr-2 h-4 w-4" />},
+    {href:"/lessons", label: "Lessons", icon: <User2Icon className="mr-2 h-4 w-4" />},
+
+
 
   ];
 
