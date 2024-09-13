@@ -14,12 +14,12 @@ interface IPlant {
   language: Language;
 }
 
-interface LessonTableProps {
+interface LessonQuizTableProps {
   limit?: number;
   title?: string;
 }
 
-const LessonTable = async ({ limit, title }: LessonTableProps) => {
+const LessonQuizTable = async ({ limit, title }: LessonQuizTableProps) => {
   const lessonQuizes: any[] = await LessonQuiz.find().populate("lessonId")
 
   return (
@@ -56,4 +56,4 @@ const LessonTable = async ({ limit, title }: LessonTableProps) => {
   );
 }
 
-export default LessonTable;
+export default LessonQuizTable;

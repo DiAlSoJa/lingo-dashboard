@@ -18,62 +18,56 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Select from 'react-select';
-import { Description } from '@radix-ui/react-dialog';
 import { Textarea } from '@/components/ui/textarea';
 
 const formSchema = z.object({
   title: z.string().min(1, {
     message: "Name is required"
   }),
-  chapterId: z.string().min(1,{
-    message: "course is required"
-  }),
-  description: z.string().min(1,{
+  lessonId: z.string().min(1,{
     message: "course is required"
   }),
 });
 
 const CreateLesson = () => {
   const router = useRouter();
-  const [chapters, setChapters] = useState<{ value: string, label: string }[]>([]);
+  const [lessons, setLessons] = useState<{ value: string, label: string }[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
-      chapterId:'',
-      description:''
+      lessonId:'',
     },
   });
   
 
   useEffect(() => {
-    const fetchChapters = async () => {
+    const fetchlessons = async () => {
       try {
-        const { data } = await axios.get('/api/chapter');
+        const { data } = await axios.get('/api/lessons');
         const options = data.map((course: { _id: string, title: string }) => ({
           value: course._id,
           label: course.title,
         }));
-        setChapters(options);
+        setLessons(options);
       } catch (error) {
-        console.error("Error fetching chapters:", error);
-        toast.error('Failed to load chapters');
+        console.error("Error fetching lessons:", error);
+        toast.error('Failed to load lessons');
       }
     };
-    fetchChapters();
+    fetchlessons();
   }, []);
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      await axios.post('/api/lessons', {
+      await axios.post('/api/lesson-quiz', {
         title: data.title,
-        chapterId: data.chapterId,
-        description: data.description
+        lessonId: data.lessonId,
       });
       toast.success('lesson created successfully');
-      router.push('/lessons'); // Redirect to the description page or wherever needed
+      router.push('/lesson-quiz'); // Redirect to the description page or wherever needed
     } catch (error) {
       toast.error('There was an error creating the lesson');
       console.error('Error creating the lessons:', error);
@@ -82,9 +76,9 @@ const CreateLesson = () => {
 
   
 
-  const handleChapterChange = (selectedOption: { value: string, label: string } | null) => {
+  const handleLessonChange = (selectedOption: { value: string, label: string } | null) => {
     setSelectedLanguage(selectedOption?.value || null);
-    form.setValue('chapterId', selectedOption?.value || '');
+    form.setValue('lessonId', selectedOption?.value || '');
   };
 
 
@@ -95,7 +89,7 @@ const CreateLesson = () => {
           
           <Card className='w-full'>
             <CardHeader>
-              <CardTitle>Create Chapter</CardTitle>
+              <CardTitle>Create Lesson quiz</CardTitle>
             </CardHeader>
             <CardContent className='space-y-2'>
               <Form {...form}>
@@ -118,37 +112,21 @@ const CreateLesson = () => {
                       </FormItem>
                     )}
                   />
+                
                   <FormField
                     control={form.control}
-                    name="description"
+                    name="lessonId"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>Description</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            className='bg-slate-100 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0'
-                            placeholder='Enter title'
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="chapterId"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>Chapter</FormLabel>
+                        <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>Lesson</FormLabel>
                         <FormControl>
                           <Select
                             className='basic-single'
                             classNamePrefix='select'
-                            options={chapters}
-                            onChange={handleChapterChange}
-                            placeholder="Select chapter"
-                            value={chapters.find(option => option.value === field.value)}
+                            options={lessons}
+                            onChange={handleLessonChange}
+                            placeholder="Select lesson"
+                            value={lessons.find(option => option.value === field.value)}
                           />
                         </FormControl>
                         <FormMessage />

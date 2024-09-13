@@ -14,17 +14,17 @@ const TableActions: React.FC<TableActionsProps> = ({ id }) => {
     const router = useRouter();
     const onDelete = async () => {
         try {
-            await axios.delete(`/api/lessons/${id}`);
+            await axios.delete(`/api/lesson-quiz/${id}`);
             toast.success(" eliminado con éxito");
             router.refresh();
         } catch (error) {
-            toast.error("Hubo un error al eliminar la lesson");
+            toast.error("Hubo un error al eliminar la lesson-quiz");
         }
     };
 
     return (
         <>
-            <Link href={`/lessons/edit/${id}`}>
+            <Link href={`/lesson-quiz/edit/${id}`}>
                 <Button variant={"primary"}>
                     Editar
                 </Button>

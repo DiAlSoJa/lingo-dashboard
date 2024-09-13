@@ -21,6 +21,7 @@ export const POST = async (req: NextRequest) => {
     // Obtenemos los datos del cuerpo de la solicitud
     const jsonData = await req.json();
 
+    console.log(jsonData, typeof jsonData)
     // Iteramos sobre las filas del jsonData
     for (const row of jsonData) {
       const { Word: title, "Language locale": locale } = row;

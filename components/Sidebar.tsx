@@ -18,6 +18,8 @@ const Sidebar = () => {
     {href:"/courses", label: "Courses", icon: <User2Icon className="mr-2 h-4 w-4" />},
     {href:"/chapter", label: "Chapters", icon: <User2Icon className="mr-2 h-4 w-4" />},
     {href:"/lessons", label: "Lessons", icon: <User2Icon className="mr-2 h-4 w-4" />},
+    {href:"/lesson-quiz", label: "Lesson Quiz", icon: <User2Icon className="mr-2 h-4 w-4" />},
+    
 
 
 
